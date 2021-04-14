@@ -1,0 +1,240 @@
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* GitHub's order, not ideal */
+    font-size: 100%;
+    line-height: 1.5;
+    color: #24292e;
+    background-color: #fff; /* GitHub failed to define this */
+}
+  
+div[role="region"] {
+    overflow: auto;
+    width: 100%;
+    padding: 0.8em 0;
+}
+  
+#Embiggen:checked ~ div[role="region"] {
+    font-size: 200%;
+}
+  
+#years span,
+td span,
+#Jan17,
+.sronly {
+    position: absolute;
+    top: auto;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    width: 1px;
+    height: 1px;
+    white-space: nowrap;
+}
+  
+table {
+    font-size: 65%;
+    border-collapse: separate;
+    border-spacing: 0.2em 0;
+}
+  
+caption {
+    text-align: left;
+    font-size: 140%;
+}
+  
+th {
+    text-align: left;
+    font-weight: normal;
+}
+  
+td {
+    padding: 0;
+}
+  
+td::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    width: 1em;
+    height: 1em;
+    background-color: #eee;
+}
+  
+td.amta::after,
+td.amtb::after,
+td.amtc::after,
+td.amtd::after {
+    display: none;
+}
+  
+td {
+    position: relative;
+}
+  
+td a {
+    display: block;
+    box-sizing: border-box;
+    width: 1em;
+    height: 1em;
+    background-color: #eee;
+    z-index: 1;
+    text-decoration: none;
+}
+  
+#Borderize:checked ~ div[role="region"] td::after,
+#Borderize:checked ~ div[role="region"] td a {
+    /* border: .01em solid #767676; */ /* 4.5:1 */
+    border: .01em solid #949494; /* 3:1 */
+}
+  
+td a:hover,
+td a:focus {
+    text-decoration: none;
+    outline: 0.1em solid #00d;
+}
+  
+td.amta a {
+    background-color: #c6e48b;
+}
+  
+td.amtb a {
+    background-color: #7bc96f;
+}
+  
+td.amtc a {
+    background-color: #239a3b;
+}
+  
+td.amtd a {
+    background-color: #196127;
+}
+  
+#Toggle:checked ~ div[role="region"] td.amta a {
+    background-image: linear-gradient(
+      to bottom right,
+      #eee 0%,
+      #eee 75%,
+      #196127 75%,
+      #196127 100%
+    );
+}
+  
+#Toggle:checked ~ div[role="region"] td.amtb a {
+    background-image: linear-gradient(
+      to bottom right,
+      #eee 0%,
+      #eee 50%,
+      #196127 50%,
+      #196127 100%
+    );
+}
+  
+#Toggle:checked ~ div[role="region"] td.amtc a {
+    background-image: linear-gradient(
+      to bottom right,
+      #eee 0%,
+      #eee 25%,
+      #196127 25%,
+      #196127 100%
+    );
+}
+  
+#Toggle:checked ~ div[role="region"] td.amtd a {
+    background-color: #196127;
+}
+  
+td[class^="amt"] a:focus::before,
+td[class^="amt"] a:hover::before {
+    position: absolute;
+    display: block;
+    z-index: 1;
+    bottom: 1.5em;
+    left: -1em;
+    width: 12em;
+    max-width: 57em;
+    padding: 0.5em 0.75em;
+    border: 0.05em solid rgba(255, 255, 255, 1);
+    border-radius: 0.2em;
+    box-shadow: 0.15em 0.15em 0.5em rgba(0, 0, 0, 1);
+    content: attr(aria-label);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: rgba(255, 255, 255, 1);
+    font-size: 110%;
+    animation: TOOLTIP 0.1s ease-out 1;
+}
+  
+td[class^="amt"]:nth-child(n + 45) a:focus::before,
+td[class^="amt"]:nth-child(n + 45) a:hover::before {
+    left: -12em;
+}
+  
+/* Windows High Contrast Mode Support */
+@media screen and (-ms-high-contrast: active) {
+    td.amta a,
+    td.amtb a,
+    td.amtc a,
+    td.amtd a {
+      background-color: Highlight;
+    }
+
+    #Toggle:checked ~ div[role="region"] td.amta a {
+      background-image: linear-gradient(
+        to bottom right,
+        Window 0%,
+        Window 75%,
+        Highlight 75%,
+        Highlight 100%
+      );
+    }
+
+    #Toggle:checked ~ div[role="region"] td.amtb a {
+      background-image: linear-gradient(
+        to bottom right,
+        Window 0%,
+        Window 50%,
+        Highlight 50%,
+        Highlight 100%
+      );
+    }
+
+    #Toggle:checked ~ div[role="region"] td.amtc a {
+      background-image: linear-gradient(
+        to bottom right,
+        Window 0%,
+        Window 25%,
+        Highlight 25%,
+        Highlight 100%
+      );
+    }
+
+    #Toggle:checked ~ div[role="region"] td.amtd a {
+      background-color: Highlight;
+    }
+
+    #Borderize:checked ~ div[role="region"] td::after,
+    #Borderize:checked ~ div[role="region"] td a {
+      border-color: ActiveBorder;
+    }
+}
+  
+/* The animation */
+  
+@keyframes TOOLTIP {
+    from {
+      bottom: 0.5em;
+      background-color: rgba(0, 0, 0, 0);
+      border: 0.05em solid rgba(255, 255, 255, 0);
+      color: rgba(255, 255, 255, 0);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 1);
+    }
+
+    to {
+      bottom: 1.5em;
+      background-color: rgba(0, 0, 0, 0.85);
+      border: 0.05em solid rgba(255, 255, 255, 1);
+      color: rgba(255, 255, 255, 1);
+      box-shadow: 0.15em 0.15em 0.5em rgba(0, 0, 0, 1);
+    }
+
+}
