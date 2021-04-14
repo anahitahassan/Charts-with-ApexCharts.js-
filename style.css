@@ -1,4 +1,3 @@
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
       sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* GitHub's order, not ideal */
@@ -6,22 +5,14 @@ body {
     line-height: 1.5;
     color: #24292e;
     background-color: #fff; /* GitHub failed to define this */
-}
+  }
   
-div[role="region"] {
-    overflow: auto;
-    width: 100%;
-    padding: 0.8em 0;
-}
-  
-#Embiggen:checked ~ div[role="region"] {
-    font-size: 200%;
-}
-  
-#years span,
-td span,
-#Jan17,
-.sronly {
+  .year span,
+  #w span,
+  td span,
+  #Jan17,
+  caption,
+  .sronly {
     position: absolute;
     top: auto;
     overflow: hidden;
@@ -30,49 +21,66 @@ td span,
     width: 1px;
     height: 1px;
     white-space: nowrap;
-}
+  }
   
-table {
+  #Embiggen:checked ~ #Wrapper {
+    font-size: 200%;
+  }
+  
+  table {
     font-size: 65%;
     border-collapse: separate;
-    border-spacing: 0.2em 0;
-}
+    border-spacing: 0.2em;
+  }
   
-caption {
+  caption {
     text-align: left;
     font-size: 140%;
-}
+    margin-bottom: 1em;
+  }
   
-th {
+  th {
     text-align: left;
     font-weight: normal;
-}
+  }
   
-td {
+  #days th {
+    overflow: visible;
     padding: 0;
-}
+    height: 2.5em;
+  }
   
-td::after {
+  #days th span[aria-hidden="true"] {
+    transform: rotate(-90deg);
+    transform-origin: 0% 50%;
+    display: block;
+    position: absolute;
+    margin-top: 0.25em;
+    margin-left: 0.5em;
+  }
+  
+  td {
+    padding: 0;
+    position: relative;
+  }
+  
+  td::after {
     content: "";
     display: block;
     box-sizing: border-box;
     width: 1em;
     height: 1em;
     background-color: #eee;
-}
+  }
   
-td.amta::after,
-td.amtb::after,
-td.amtc::after,
-td.amtd::after {
+  td.amta::after,
+  td.amtb::after,
+  td.amtc::after,
+  td.amtd::after {
     display: none;
-}
+  }
   
-td {
-    position: relative;
-}
-  
-td a {
+  td a {
     display: block;
     box-sizing: border-box;
     width: 1em;
@@ -80,37 +88,37 @@ td a {
     background-color: #eee;
     z-index: 1;
     text-decoration: none;
-}
+  }
   
-#Borderize:checked ~ div[role="region"] td::after,
-#Borderize:checked ~ div[role="region"] td a {
+  #Borderize:checked ~ #Wrapper td::after,
+  #Borderize:checked ~ #Wrapper td a {
     /* border: .01em solid #767676; */ /* 4.5:1 */
-    border: .01em solid #949494; /* 3:1 */
-}
+    border: 0.01em solid #949494; /* 3:1 */
+  }
   
-td a:hover,
-td a:focus {
+  td a:hover,
+  td a:focus {
     text-decoration: none;
     outline: 0.1em solid #00d;
-}
+  }
   
-td.amta a {
+  td.amta a {
     background-color: #c6e48b;
-}
+  }
   
-td.amtb a {
+  td.amtb a {
     background-color: #7bc96f;
-}
+  }
   
-td.amtc a {
+  td.amtc a {
     background-color: #239a3b;
-}
+  }
   
-td.amtd a {
+  td.amtd a {
     background-color: #196127;
-}
+  }
   
-#Toggle:checked ~ div[role="region"] td.amta a {
+  #Toggle:checked ~ #Wrapper td.amta a {
     background-image: linear-gradient(
       to bottom right,
       #eee 0%,
@@ -118,9 +126,9 @@ td.amtd a {
       #196127 75%,
       #196127 100%
     );
-}
+  }
   
-#Toggle:checked ~ div[role="region"] td.amtb a {
+  #Toggle:checked ~ #Wrapper td.amtb a {
     background-image: linear-gradient(
       to bottom right,
       #eee 0%,
@@ -128,9 +136,9 @@ td.amtd a {
       #196127 50%,
       #196127 100%
     );
-}
+  }
   
-#Toggle:checked ~ div[role="region"] td.amtc a {
+  #Toggle:checked ~ #Wrapper td.amtc a {
     background-image: linear-gradient(
       to bottom right,
       #eee 0%,
@@ -138,14 +146,14 @@ td.amtd a {
       #196127 25%,
       #196127 100%
     );
-}
+  }
   
-#Toggle:checked ~ div[role="region"] td.amtd a {
+  #Toggle:checked ~ #Wrapper td.amtd a {
     background-color: #196127;
-}
+  }
   
-td[class^="amt"] a:focus::before,
-td[class^="amt"] a:hover::before {
+  td[class^="amt"] a:focus::before,
+  td[class^="amt"] a:hover::before {
     position: absolute;
     display: block;
     z-index: 1;
@@ -162,23 +170,68 @@ td[class^="amt"] a:hover::before {
     color: rgba(255, 255, 255, 1);
     font-size: 110%;
     animation: TOOLTIP 0.1s ease-out 1;
-}
+  }
   
-td[class^="amt"]:nth-child(n + 45) a:focus::before,
-td[class^="amt"]:nth-child(n + 45) a:hover::before {
-    left: -12em;
-}
+  /* Comment these out to remove the transition. */
+  /* The transition is only there to show the    */
+  /* CSS acrobatics it takes to make this work.  */
+  table {
+    transition: all 0.5s ease-in;
+  }
+  #days th span[aria-hidden="true"],
+  tr th span[aria-hidden="true"] {
+    transition: transform 1s ease-out .5s;
+  }
+  /* End weird transition silliness.             */
   
-/* Windows High Contrast Mode Support */
-@media screen and (-ms-high-contrast: active) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    table, #days th span[aria-hidden="true"], tr th span[aria-hidden="true"] {
+      transition: none;
+    }
+  }
+  
+  @media screen and (min-width: 46em) {
+    table {
+      transform: rotate(-90deg);
+      transform-origin: 100% top;
+      margin-left: -12em;
+    }
+    #Wrapper {
+      height: 9em;
+      overflow: visible;
+      transform: matrix(1, 0, 0, -1, 0, 0);
+    }
+    #days th span[aria-hidden="true"] {
+      transform: matrix(-1, 0, 0, 1, 0, 0) rotate(90deg);
+      margin-top: -1.5em;
+    }
+    tr th span[aria-hidden="true"] {
+      display: block;
+      transform: matrix(-1, 0, 0, 1, 0, 0) rotate(90deg);
+      margin-top: -2em;
+    }
+    td[class^="amt"] a:focus::before,
+    td[class^="amt"] a:hover::before {
+      transform: matrix(-1, 0, 0, 1, 0, 0) rotate(90deg);
+      transform-origin: 0 0;
+      left: -4.5em;
+      margin-bottom: -3em;
+    }
+    tr:nth-child(n + 45) td[class^="amt"] a:focus::before,
+    tr:nth-child(n + 45) td[class^="amt"] a:hover::before {
+      margin-bottom: 7em;
+    }
+  }
+  
+  /* Windows High Contrast Mode Support */
+  @media screen and (-ms-high-contrast: active) {
     td.amta a,
     td.amtb a,
     td.amtc a,
     td.amtd a {
       background-color: Highlight;
     }
-
-    #Toggle:checked ~ div[role="region"] td.amta a {
+    #Toggle:checked ~ #Wrapper td.amta a {
       background-image: linear-gradient(
         to bottom right,
         Window 0%,
@@ -187,8 +240,7 @@ td[class^="amt"]:nth-child(n + 45) a:hover::before {
         Highlight 100%
       );
     }
-
-    #Toggle:checked ~ div[role="region"] td.amtb a {
+    #Toggle:checked ~ #Wrapper td.amtb a {
       background-image: linear-gradient(
         to bottom right,
         Window 0%,
@@ -197,8 +249,7 @@ td[class^="amt"]:nth-child(n + 45) a:hover::before {
         Highlight 100%
       );
     }
-
-    #Toggle:checked ~ div[role="region"] td.amtc a {
+    #Toggle:checked ~ #Wrapper td.amtc a {
       background-image: linear-gradient(
         to bottom right,
         Window 0%,
@@ -207,20 +258,18 @@ td[class^="amt"]:nth-child(n + 45) a:hover::before {
         Highlight 100%
       );
     }
-
-    #Toggle:checked ~ div[role="region"] td.amtd a {
+    #Toggle:checked ~ #Wrapper td.amtd a {
       background-color: Highlight;
     }
-
-    #Borderize:checked ~ div[role="region"] td::after,
-    #Borderize:checked ~ div[role="region"] td a {
+    #Borderize:checked ~ #Wrapper td::after,
+    #Borderize:checked ~ #Wrapper td a {
       border-color: ActiveBorder;
     }
-}
+  }
   
-/* The animation */
+  /* The animation */
   
-@keyframes TOOLTIP {
+  @keyframes TOOLTIP {
     from {
       bottom: 0.5em;
       background-color: rgba(0, 0, 0, 0);
@@ -228,7 +277,6 @@ td[class^="amt"]:nth-child(n + 45) a:hover::before {
       color: rgba(255, 255, 255, 0);
       box-shadow: 0 0 0 rgba(0, 0, 0, 1);
     }
-
     to {
       bottom: 1.5em;
       background-color: rgba(0, 0, 0, 0.85);
@@ -236,5 +284,4 @@ td[class^="amt"]:nth-child(n + 45) a:hover::before {
       color: rgba(255, 255, 255, 1);
       box-shadow: 0.15em 0.15em 0.5em rgba(0, 0, 0, 1);
     }
-
-}
+  }
